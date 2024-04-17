@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class CrawlingController {
 
     @PostMapping("/crawling/{id}")
     public ScheduleResult crawl(@PathVariable final String id,
-                                @RequestParam final String startDate,
-                                @RequestParam final String endDate) throws Exception {
+                                @RequestParam final LocalDate startDate,
+                                @RequestParam final LocalDate endDate) throws Exception {
         String timetableXML = timetableService.fetchTimetable(id);
         List<ScheduleResponse> scheduleResponses = timetableService.processTimetable(timetableXML, startDate, endDate);
         return new ScheduleResult(scheduleResponses);

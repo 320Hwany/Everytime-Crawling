@@ -49,15 +49,13 @@ public class TimetableService {
         return response.getBody();
     }
 
-    public List<ScheduleResponse> processTimetable(final String xml, final String begin, final String end) throws Exception {
+    public List<ScheduleResponse> processTimetable(final String xml, final LocalDate startDate, final LocalDate endDate) throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new InputSource(new StringReader(xml)));
         NodeList subjects = doc.getElementsByTagName("subject");
 
         List<ScheduleResponse> schedules = new ArrayList<>();
-        LocalDate startDate = LocalDate.parse(begin);
-        LocalDate endDate = LocalDate.parse(end);
 
         for (int i = 0; i < subjects.getLength(); i++) {
             Node node = subjects.item(i);
